@@ -5,7 +5,7 @@ class LoadDataset:
         def __init__(self):
                 self.directory = 'datasets/'
                 #self.datafiles = ['car.data','segmentation.data']
-                self.datafiles = ['segmentation.data']
+                self.datafiles = ['car.data']
                 self.alldatasets = {}
                 
         def load_data(self):
