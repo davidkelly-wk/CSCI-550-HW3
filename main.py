@@ -6,6 +6,7 @@ import numpy as np
 import math
 import pandas as pd
 from sklearn.model_selection import KFold
+from decision_tree import Decision_Tree
 
 class Main:
         def __init__(self):
@@ -41,6 +42,34 @@ class Main:
                                         fold_number += 1
 
                 return self.allresults
+
+        def main_DT(self):
+                for dataset in self.alldatasets:         #for each dataset call each algorithm
+                        print('current dataset ::: {0} \n'.format(dataset))
+                        data = self.alldatasets.get(dataset)
+                        #k-fold cross validation
+                        kf = KFold(n_splits = self.num_folds)
+                        fold_number = 1
+                        for train_index, test_index in kf.split(data):
+                                #indices to use for test and train
+                                trainset = np.take(data, axis=0, indices=train_index)
+                                testset = np.take(data, axis=0, indices=test_index)
+                                print(trainset.columns)
+                                print(len(trainset))
+                                #call DT
+                                predicted, labels = self.DT(trainset, testset)
+                                self.performance_measure(predicted, labels, dataset, 'N/A', fold_number, 'DTree')
+                                fold_number += 1
+
+                return self.allresults
+
+        def DT(self, trainset, testset):
+                dt = Decision_Tree(int(len(trainset)*0.1), 0.9)
+                dt.root = dt.create_dt(trainset, max(trainset[trainset.columns[-1]])+1)
+                predicted = dt.classify(trainset)#testset)
+                return predicted, trainset[trainset.columns[-1]]#  testset[testset.columns[-1]]
+
+
         
         def knn(self, trainset, testset, k):
                 predicted = knn.Knn().fit(trainset.values, testset, k)
@@ -56,6 +85,10 @@ class Main:
                                                 'recall': recall}, ignore_index=True)
         
         
-results = Main().main()
+# results = Main().main()
+# results.to_csv('results.csv')
+# print(results)
+
+results = Main().main_DT()
 results.to_csv('results.csv')
 print(results)
