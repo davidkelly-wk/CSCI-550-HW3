@@ -61,11 +61,11 @@ class Decision_Tree:
         split_value = 0
         score = -float('INF')
         for i in range(len(data.columns)-1):
-            print(data.columns[i])#, data.columns[i].type())
+            # print(data.columns[i])#, data.columns[i].type())
             if data[data.columns[i]].dtype != 'O':
                 # call numeric attribute evaluator
                 mid_point, score_temp = self.evaluate_attribute_numeric(data.columns[i], data, n_classes)
-                print(score_temp)
+                # print(score_temp)
                 if score_temp > score:
                     score = score_temp
                     split_attribute = data.columns[i]
