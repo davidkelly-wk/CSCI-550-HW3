@@ -64,7 +64,7 @@ class Main:
                 return self.allresults
 
         def DT(self, trainset, testset):
-                dt = Decision_Tree(int(len(trainset)*0.1), 0.9)
+                dt = Decision_Tree(int(1), 0.95)
                 dt.root = dt.create_dt(trainset, max(trainset[trainset.columns[-1]])+1)
                 predicted = dt.classify(trainset)#testset)
                 return predicted, trainset[trainset.columns[-1]]#  testset[testset.columns[-1]]
@@ -89,6 +89,6 @@ class Main:
 # results.to_csv('results.csv')
 # print(results)
 
-# results = Main().main_DT()
-# results.to_csv('results.csv')
-# print(results)
+results = Main().main_DT()
+results.to_csv('results.csv')
+print(results)
