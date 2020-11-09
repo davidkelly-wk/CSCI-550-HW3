@@ -160,6 +160,8 @@ class Decision_Tree:
         predicted = pd.Series(np.zeros(len(test_data)))
         for i in range(len(test_data)):
             predicted[i] = self.classify_point(test_data.iloc[i], self.root)
+            if predicted[i] == None:
+                print(test_data[i])
 
 
         return predicted
@@ -167,7 +169,13 @@ class Decision_Tree:
     def classify_point(self, data_point, node):
         if node.label != None:
             return node.label
-        if data_point[node.split_attribute] <= node.split_value and node.y_branch != None:
-            return self.classify_point(data_point, node.y_branch)
-        elif data_point[node.split_attribute] > node.split_value and node.n_branch != None:
-            return self.classify_point(data_point, node.n_branch)
+        if data_point[node.split_attribute] <= node.split_value:
+            if node.y_branch != None:
+                return self.classify_point(data_point, node.y_branch)
+            else:
+                return self.classify_point(data_point, node.n_branch)
+        elif data_point[node.split_attribute] > node.split_value:
+            if node.n_branch != None:
+                return self.classify_point(data_point, node.n_branch)
+            else:
+                return self.classify_point(data_point, node.y_branch)

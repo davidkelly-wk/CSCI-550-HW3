@@ -66,8 +66,9 @@ class Main:
         def DT(self, trainset, testset):
                 dt = Decision_Tree(int(1), 0.95)
                 dt.root = dt.create_dt(trainset, max(trainset[trainset.columns[-1]])+1)
-                predicted = dt.classify(trainset)#testset)
-                return predicted, trainset[trainset.columns[-1]]#  testset[testset.columns[-1]]
+                predicted = dt.classify(testset)#testset)
+                print(predicted)
+                return predicted, testset[testset.columns[-1]]#  testset[testset.columns[-1]]
 
 
         
@@ -85,9 +86,9 @@ class Main:
                                                 'recall': recall, 'F1-score': f1_score}, ignore_index=True)
         
         
-knn_results = Main().main()
-knn_results.to_csv('knn_results.csv')
-print(knn_results)
+# knn_results = Main().main()
+# knn_results.to_csv('knn_results.csv')
+# print(knn_results)
 
 dtree_results = Main().main_DT()
 dtree_results.to_csv('dtree_results.csv')
