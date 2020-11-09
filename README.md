@@ -1,4 +1,4 @@
-# CSCI-550-HW3 ![Python application](https://github.com/davidkelly-wk/CSCI-550-HW3/workflows/Python%20application/badge.svg)
+# CSCI-550-HW3
 Datamining HW3
 
 |FIELD1|dataset|k  |fold_number|method|accuracy          |precision         |recall            |
