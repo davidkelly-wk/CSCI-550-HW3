@@ -85,10 +85,10 @@ class Main:
                                                 'recall': recall, 'F1-score': f1_score}, ignore_index=True)
         
         
-# results = Main().main()
-# results.to_csv('results.csv')
-# print(results)
+knn_results = Main().main()
+knn_results.to_csv('knn_results.csv')
+print(knn_results)
 
-results = Main().main_DT()
-results.to_csv('results.csv')
-print(results)
+dtree_results = Main().main_DT()
+dtree_results.to_csv('dtree_results.csv')
+print(dtree_results)
