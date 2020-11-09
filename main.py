@@ -18,7 +18,7 @@ class Main:
                 self.alldatasets = ld.LoadDataset().load_data()          #load all datasets 
                 #define dataframe to store all the results
                 self.allresults = pd.DataFrame(columns=['dataset', 'k', 'fold_number', 'method',
-                                                        'accuracy', 'precision', 'recall'])
+                                                        'accuracy', 'precision', 'recall', 'F1-score'])
                 
         def main(self):
                 for dataset in self.alldatasets:         #for each dataset call each algorithm
@@ -76,13 +76,13 @@ class Main:
                 return predicted, testset.iloc[:, -1]   #return predicted and actual labels
         
         def performance_measure(self, predicted, labels, dataset, k, fold_number, method):
-                acc, prec, recall = metrics.confusion_matrix(labels.values, predicted)
-                self.update_result(dataset, k, fold_number, method, acc, prec, recall, 0)
+                acc, prec, recall, f1_score = metrics.confusion_matrix(labels.values, predicted)
+                self.update_result(dataset, k, fold_number, method, acc, prec, recall, f1_score)
         
-        def update_result(self, dataset, k, fold_number, method, acc, prec, recall, rmse):
+        def update_result(self, dataset, k, fold_number, method, acc, prec, recall, f1_score):
                 self.allresults = self.allresults.append({'dataset': dataset,
                                                 'k': k, 'fold_number': fold_number, 'method': method, 'accuracy': acc, 'precision': prec,
-                                                'recall': recall}, ignore_index=True)
+                                                'recall': recall, 'F1-score': f1_score}, ignore_index=True)
         
         
 # results = Main().main()

@@ -31,4 +31,5 @@ def confusion_matrix(y_test, y_pred):
         accuracy = ((TP + TN)/ (TP + TN + FP + FN))
         precision = TP/(FP + TP)
         recall = TP/(FN + TP)
-        return accuracy, precision, recall
+        f1_score = 2 * precision * recall / (precision + recall)
+        return accuracy, precision, recall, f1_score
