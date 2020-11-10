@@ -5,7 +5,7 @@ Required packages for this application can be installed with the pip. Run pip in
 Note: if you have pip configured as your python 2 package manager, you may have to use pip3 instead as this application requires python 3.
 
 ## THIS PROGRAM TAKES ~30 MINUTES TO RUN
-k-NN is inherently slow, and using a larger value such as 41 (the sqrt of the dataset length) causes it to take even longer. To run without k-NN, simply comment out lines 105-107 in main.py 
+k-NN is inherently slow, and using a larger value such as 41 (the sqrt of the dataset length) causes it to take even longer. To run without k-NN, simply enter 'n' when prompted if you want to run k-NN.
 
 ## k-NN results
 

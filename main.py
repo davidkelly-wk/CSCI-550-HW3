@@ -101,11 +101,14 @@ class Main:
                                                 'leaf_size': leaf_size, 'purity': purity, 'fold_number': fold_number, 'method': method, 'accuracy': acc, 'precision': prec,
                                                 'recall': recall, 'F1-score': f1_score}, ignore_index=True)
         
-        
-knn_results = Main().main()
-knn_results.to_csv('knn_results.csv')
-print(knn_results)
+run_knn = input('Do you wish to run k-NN? (y/n) ')
+run_dtree = input('Do you wish to run the decision tree? (y/n) ')
+if run_knn == 'y':       
+        knn_results = Main().main()
+        knn_results.to_csv('knn_results.csv')
+        print(knn_results)
 
-dtree_results = Main().main_DT()
-dtree_results.to_csv('dtree_results.csv')
-print(dtree_results)
+if run_dtree == 'y':
+        dtree_results = Main().main_DT()
+        dtree_results.to_csv('dtree_results.csv')
+        print(dtree_results)
