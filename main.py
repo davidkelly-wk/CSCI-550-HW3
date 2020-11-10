@@ -28,13 +28,18 @@ class Main:
                                 sqrt_k -= 1                     #make sqrt_k odd number
                         self.knn_k_values[2] = sqrt_k           #3 values for K including sqrt(n)
                         for k in self.knn_k_values:
+                                print(str.format('k-nn with k = {0}', k))
                                 #k-fold cross validation
                                 kf = KFold(n_splits = self.num_folds)
                                 fold_number = 1
                                 for train_index, test_index in kf.split(data):
+                                        print(str.format('fold : {0}', fold_number))
                                         #indices to use for test and train
                                         trainset = np.take(data, axis=0, indices=train_index)
                                         testset = np.take(data, axis=0, indices=test_index)
+                                        print("Attributes")
+                                        print(trainset.columns)
+                                        print(str.format('training set length : {0}', len(trainset)))
                                         #call knn  
                                         predicted, labels = self.knn(trainset, testset, k)
                                         self.performance_measure(predicted, labels, dataset, k, fold_number, 'KNN')
@@ -79,10 +84,12 @@ class Main:
         
         def performance_measure(self, predicted, labels, dataset, k, fold_number, method):
                 acc, prec, recall, f1_score = metrics.confusion_matrix(labels.values, predicted)
+                print(str.format('acc : {0}, prec : {1}, recall : {2}, f1 score : {3}', acc, prec, recall, f1_score))
                 self.update_result(dataset, k, fold_number, method, acc, prec, recall, f1_score)
 
         def performance_measure_DT(self, predicted, labels, dataset, leaf_size, purity, fold_number, method):
                 acc, prec, recall, f1_score = metrics.confusion_matrix(labels.values, predicted)
+                print(str.format('acc : {0}, prec : {1}, recall : {2}, f1 score : {3}', acc, prec, recall, f1_score))
                 self.update_result_DT(dataset, leaf_size, purity, fold_number, method, acc, prec, recall, f1_score)
         
         def update_result(self, dataset, k, fold_number, method, acc, prec, recall, f1_score):
