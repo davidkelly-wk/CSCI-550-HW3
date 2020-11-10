@@ -39,16 +39,3 @@ class Knn:
         for index, x in testset.iterrows():
                 predicted.append(Knn.knn(trainset, x, k))
         return predicted
-
-# testing data
-#testClass = np.array([[1, 2, 0], [2, 3, 1], [7, 8, 2], [6, 5, 1]])
-#testClassPoint = np.array([7, 7, 0])
-#testReg = np.array([[3.1, 2.1, 9.3], [1.1, 1.1, 0], [9.1, 8.1, 9.7], [7.1, 5.1, 3.3]])
-#testRegPoint = np.array([9.1, 9.1, 0])
-
-#print(Knn.knn(testClass, testClassPoint, 4, True))
-#print(Knn.knn(testReg, testRegPoint, 3, False))
-#k = 2
-#tempTrain = np.array([[2, 3, 1], [1, 2, 0], [6, 5, 1]])
-#knnTestPoint = [6, 5, 1] 
-#print(Knn.knn(tempTrain, knnTestPoint, k, True))

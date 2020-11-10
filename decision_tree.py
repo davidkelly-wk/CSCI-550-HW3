@@ -23,14 +23,14 @@ class Decision_Tree:
         node = Node()
         majority_class, purity = self.get_purity(data)
         if len(data) < self.leaf_size or purity > self.purity:
-            print(purity)
-            print(len(data))
+            print(str.format('purity : {0}', purity))
+            print(str.format('data length : {0}', len(data)))
             node.label = majority_class
             return node
 
         if data.equals(data_prev):
-            print(purity)
-            print(len(data))
+            print(str.format('purity : {0}', purity))
+            print(str.format('data length : {0}', len(data)))
             node.label = majority_class
             return node
 
