@@ -50,24 +50,25 @@ class Main:
                         #k-fold cross validation
                         kf = KFold(n_splits = self.num_folds)
                         fold_number = 1
-                        for train_index, test_index in kf.split(data):
-                                #indices to use for test and train
-                                trainset = np.take(data, axis=0, indices=train_index)
-                                testset = np.take(data, axis=0, indices=test_index)
-                                print(trainset.columns)
-                                print(len(trainset))
-                                #call DT
-                                predicted, labels = self.DT(trainset, testset)
-                                self.performance_measure(predicted, labels, dataset, 'N/A', fold_number, 'DTree')
-                                fold_number += 1
+                        for i, j in ([1, 0.95], [5, 0.95], [15, 0.95], [1, 0.85], [5, 0.85], [15, 0.85], [1, 0.75], [5, 0.75], [15, 0.75]):
+                                for train_index, test_index in kf.split(data):
+                                        #indices to use for test and train
+                                        trainset = np.take(data, axis=0, indices=train_index)
+                                        testset = np.take(data, axis=0, indices=test_index)
+                                        print(trainset.columns)
+                                        print(len(trainset))
+                                        #call DT
+                                        predicted, labels = self.DT(trainset, testset, i, j)
+                                        self.performance_measure_DT(predicted, labels, dataset, i, j, fold_number, 'DTree')
+                                        fold_number += 1
 
                 return self.allresults
 
-        def DT(self, trainset, testset):
-                dt = Decision_Tree(int(1), 0.95)
+        def DT(self, trainset, testset, leaf_size, purity):
+                dt = Decision_Tree(int(leaf_size), purity)
                 dt.root = dt.create_dt(trainset, max(trainset[trainset.columns[-1]])+1)
                 predicted = dt.classify(testset)#testset)
-                print(predicted)
+                # print(predicted)
                 return predicted, testset[testset.columns[-1]]#  testset[testset.columns[-1]]
 
 
@@ -79,10 +80,18 @@ class Main:
         def performance_measure(self, predicted, labels, dataset, k, fold_number, method):
                 acc, prec, recall, f1_score = metrics.confusion_matrix(labels.values, predicted)
                 self.update_result(dataset, k, fold_number, method, acc, prec, recall, f1_score)
+
+        def performance_measure_DT(self, predicted, labels, dataset, leaf_size, purity, fold_number, method):
+                acc, prec, recall, f1_score = metrics.confusion_matrix(labels.values, predicted)
+                self.update_result_DT(dataset, leaf_size, purity, fold_number, method, acc, prec, recall, f1_score)
         
         def update_result(self, dataset, k, fold_number, method, acc, prec, recall, f1_score):
                 self.allresults = self.allresults.append({'dataset': dataset,
                                                 'k': k, 'fold_number': fold_number, 'method': method, 'accuracy': acc, 'precision': prec,
+                                                'recall': recall, 'F1-score': f1_score}, ignore_index=True)
+        def update_result_DT(self, dataset, leaf_size, purity, fold_number, method, acc, prec, recall, f1_score):
+                self.allresults = self.allresults.append({'dataset': dataset,
+                                                'leaf_size': leaf_size, 'purity': purity, 'fold_number': fold_number, 'method': method, 'accuracy': acc, 'precision': prec,
                                                 'recall': recall, 'F1-score': f1_score}, ignore_index=True)
         
         
