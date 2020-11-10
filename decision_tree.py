@@ -173,13 +173,17 @@ class Decision_Tree:
     def classify_point(self, data_point, node):
         if node.label != None:
             return node.label
-        if data_point[node.split_attribute] <= node.split_value:
+        if data_point[node.split_attribute] < node.split_value:
             if node.y_branch != None:
                 return self.classify_point(data_point, node.y_branch)
             else:
                 return self.classify_point(data_point, node.n_branch)
-        elif data_point[node.split_attribute] > node.split_value:
+        elif data_point[node.split_attribute] >= node.split_value:
             if node.n_branch != None:
                 return self.classify_point(data_point, node.n_branch)
             else:
                 return self.classify_point(data_point, node.y_branch)
+
+# # split data
+#         data_y = data[data[node.split_attribute] < node.split_value]
+#         data_n = data[data[node.split_attribute] >= node.split_value]
