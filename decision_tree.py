@@ -184,6 +184,3 @@ class Decision_Tree:
             else:
                 return self.classify_point(data_point, node.y_branch)
 
-# # split data
-#         data_y = data[data[node.split_attribute] < node.split_value]
-#         data_n = data[data[node.split_attribute] >= node.split_value]
