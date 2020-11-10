@@ -23,11 +23,13 @@ class Decision_Tree:
         node = Node()
         majority_class, purity = self.get_purity(data)
         if len(data) < self.leaf_size or purity > self.purity:
+            print(purity)
             print(len(data))
             node.label = majority_class
             return node
 
         if data.equals(data_prev):
+            print(purity)
             print(len(data))
             node.label = majority_class
             return node
@@ -42,10 +44,10 @@ class Decision_Tree:
 
         # call algorithm on each branch
         if len(data_y) > 0:
-            print(data_y.head())
+            # print(data_y.head())
             node.y_branch = self.create_dt(data_y, n_classes, data)
         if len(data_n) > 0:
-            print(data_n.head())
+            # print(data_n.head())
             node.n_branch = self.create_dt(data_n, n_classes, data)
 
         return node

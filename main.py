@@ -50,7 +50,7 @@ class Main:
                         #k-fold cross validation
                         kf = KFold(n_splits = self.num_folds)
                         fold_number = 1
-                        for i, j in ([1, 0.95], [5, 0.95], [15, 0.95], [1, 0.85], [5, 0.85], [15, 0.85], [1, 0.75], [5, 0.75], [15, 0.75]):
+                        for i, j in ([1, 0.95], [15, 0.95], [1, 0.75], [15, 0.75]):
                                 for train_index, test_index in kf.split(data):
                                         #indices to use for test and train
                                         trainset = np.take(data, axis=0, indices=train_index)
