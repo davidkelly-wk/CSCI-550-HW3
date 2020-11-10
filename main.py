@@ -11,7 +11,6 @@ from decision_tree import Decision_Tree
 class Main:
         def __init__(self):
                 #define variable to use inside class which may need tuning
-                self.splitlength = 0.75
                 self.knn_k_values = [3,5,7]
                 self.num_folds = 5
                 
@@ -55,8 +54,9 @@ class Main:
                                         #indices to use for test and train
                                         trainset = np.take(data, axis=0, indices=train_index)
                                         testset = np.take(data, axis=0, indices=test_index)
+                                        print("Attributes")
                                         print(trainset.columns)
-                                        print(len(trainset))
+                                        print(str.format('training set length : {0}', len(trainset)))
                                         #call DT
                                         predicted, labels = self.DT(trainset, testset, i, j)
                                         self.performance_measure_DT(predicted, labels, dataset, i, j, fold_number, 'DTree')
@@ -95,9 +95,9 @@ class Main:
                                                 'recall': recall, 'F1-score': f1_score}, ignore_index=True)
         
         
-# knn_results = Main().main()
-# knn_results.to_csv('knn_results.csv')
-# print(knn_results)
+knn_results = Main().main()
+knn_results.to_csv('knn_results.csv')
+print(knn_results)
 
 dtree_results = Main().main_DT()
 dtree_results.to_csv('dtree_results.csv')
